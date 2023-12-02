@@ -43,7 +43,20 @@ async function getForecastDataByName(cityName) {
   
 
   // TODO: Implement this function
-  
+  try {
+    const data = await getDataFromDatabase();
+    const searchedCity = data.find((element)=>{
+      return element.city.toLowerCase() === cityName.toLowerCase();
+    })
+    if(searchedCity){
+      return searchedCity.forecast;
+    }
+    else{
+      throw new Error('City not found')
+    }
+  } catch (error) {
+    throw error
+  }
 }
 
 
